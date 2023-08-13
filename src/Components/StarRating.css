@@ -1,0 +1,15 @@
+.star-rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.star {
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.star.filled {
+  color: #ffbf00;
+}
