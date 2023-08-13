@@ -30,6 +30,6 @@ export const AuthContextProvider = (props) => {
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  console.log("Auth Context:", context);
+
   return context;
 };

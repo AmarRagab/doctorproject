@@ -7,16 +7,27 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import './overview.css';
 import { useAuth } from './context/Auth/AuthContextProvider';
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 const OverviewPopup = ({ doctorData, onClose }) => {
   const [reviews, setReviews] = useState([]);
   const {user} =useAuth();
+  const {isLoging} =useAuth();
   const [averageRating, setAverageRating] = useState(0);
   const [selectedReview, setSelectedReview] = useState(null); 
   const [isReviewPopupOpen, setIsReviewPopupOpen] = useState(false);
 
   const handleReviewPopupOpen = () => {
-    setIsReviewPopupOpen(true);
+    if (isLoging) {
+      setIsReviewPopupOpen(true);
+    }
+    else {
+      toast.error("You're not logged in!", {
+        position: 'top-center',
+        autoClose: 1500,
+      });
+    }
   };
 
   const handleReviewSave = (reviewData) => {
@@ -147,7 +158,7 @@ const OverviewPopup = ({ doctorData, onClose }) => {
             )}
             
           </div>
-          {isReviewPopupOpen && (
+          {isReviewPopupOpen && isLoging &&(
             <ReviewPopup
               onSave={handleReviewSave}  
               onCancel={handleReviewPopupClose}
@@ -157,6 +168,7 @@ const OverviewPopup = ({ doctorData, onClose }) => {
           <button className="close-button" onClick={onClose}>
               Close
             </button>
+            <ToastContainer></ToastContainer>
         </div>
         </div>
       </div>
@@ -171,7 +183,6 @@ const OverviewPopup = ({ doctorData, onClose }) => {
 const calculateAverageRating = (reviews) => {
   let sum=0;
   const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
-  console.log(totalRating);
       return (totalRating / reviews.length) || 0;
 };
 

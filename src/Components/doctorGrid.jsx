@@ -5,12 +5,15 @@ import { address, name, major, phone, city } from './contstans';
 import ReviewPopup from './ReviewDialog';
 import './DoctorGrid.css';
 import OverviewPopup from './Overview';
+import { useRef } from 'react';
 import { useAuth } from './context/Auth/AuthContextProvider';
 import { ToastContainer, toast } from 'react-toastify';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
+import { useCallback } from 'react';
 
 const DoctorGrid = ({ doctors }) => {
+  const gridRef = useRef();
   const rowData = [...doctors].reverse();
   const [isReviewPopupOpen, setIsReviewPopupOpen] = useState(false);
   const [isOverviewPopupOpen, setIsOverviewPopupOpen] = useState(false);
@@ -83,6 +86,14 @@ const DoctorGrid = ({ doctors }) => {
   };
 
 
+  const onPageSizeChanged = useCallback((event) => {
+    const value=event.target.value;
+    console.log(Number(value));
+    gridRef.current.api.paginationSetPageSize(Number(value));
+  }, []);
+  
+
+
   const columnDefs = [
 
     {
@@ -101,12 +112,30 @@ const DoctorGrid = ({ doctors }) => {
 
   return (
     <div className="ag-theme-alpine" style={{ height: '600px', width: '70%' }}>
-      <AgGridReact rowData={rowData} columnDefs={columnDefs} getRowHeight={() => 80} />
+      <div className="example-wrapper">
+        <div className="example-header">
+          Page Size:
+          <select onChange={onPageSizeChanged} id="page-size">
+            <option value="10">10</option>
+            <option value="100">100</option>
+            <option value="500">500</option>
+            <option value="1000">1000</option>
+          </select>
+        </div>
+        </div>
+      <AgGridReact
+        ref={gridRef}
+        rowData={rowData}
+        columnDefs={columnDefs}
+        getRowHeight={() => 80}
+      />
       {isReviewPopupOpen && (
         <ReviewPopup
           onSave={handleSaveReview}
           onCancel={handleCancelReview}
           doctorId={selectedDoctorId}
+          pagination={true}
+          paginationPageSize={5}
         />
       )}
       {isOverviewPopupOpen && (
