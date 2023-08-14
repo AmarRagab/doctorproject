@@ -93,12 +93,16 @@ const OverviewPopup = ({ doctorData, onClose }) => {
       flex: 1,
       filter: true,
       resizable: true,
+      minWidth: 100,
+
     },
     {
       headerName: 'Date', field: 'date', sortable: true,
       flex: 1,
       filter: true,
       resizable: true,
+      minWidth: 100,
+
     },
     {
       headerName: 'Stars',
@@ -106,6 +110,7 @@ const OverviewPopup = ({ doctorData, onClose }) => {
       flex: 1,
       filter: true,
       resizable: true,
+      minWidth: 100,
       cellRenderer: ({ value }) => <StarRating rating={value} readOnly />
     },
     {
@@ -116,6 +121,8 @@ const OverviewPopup = ({ doctorData, onClose }) => {
       flex: 1,
       filter: true,
       resizable: true,
+      minWidth: 100,
+
     },
   ];
 
@@ -132,9 +139,10 @@ const OverviewPopup = ({ doctorData, onClose }) => {
             <p>phone: {doctorData.mobile}</p>
             <p>Average Rating:</p>
             <StarRating rating={averageRating} readOnly />
-            <button className="rate-button" onClick={handleReviewPopupOpen}>
+            {isLoging &&(  <button className="rate-button" onClick={handleReviewPopupOpen}>
               Rate
-            </button>
+            </button>)}
+          
           </div>
 
           <h3>Reviews</h3>
@@ -143,6 +151,7 @@ const OverviewPopup = ({ doctorData, onClose }) => {
             <AgGridReact
               rowData={reviews}
               columnDefs={columnDefs}
+              getRowHeight={() => 60}
               onCellClicked={(event) => {
                 if (event.colDef.field === 'notes') {
                   handleShowPopup(event.data);
@@ -181,7 +190,6 @@ const OverviewPopup = ({ doctorData, onClose }) => {
 };
 
 const calculateAverageRating = (reviews) => {
-  let sum=0;
   const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
       return (totalRating / reviews.length) || 0;
 };

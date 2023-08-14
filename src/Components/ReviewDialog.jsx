@@ -38,9 +38,11 @@ const ReviewPopup = ({ onSave, onCancel, doctorId }) => {
             <button className="cancel-button" onClick={onCancel}>
               Cancel
             </button>
-            <button className="save-button" onClick={handleSave}>
-              Save
-            </button>
+            {rating > 0 && (
+               <button className="save-button" onClick={handleSave}>
+               Save
+             </button>
+            )}
           </div>
         </div>
       </div>

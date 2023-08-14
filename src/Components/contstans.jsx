@@ -6,6 +6,9 @@ const address = {
     minWidth: 100,
     filter: true,
     resizable: true,
+      enableRowGroup: true,
+      enablePivot: true,
+      enableValue: true,
 };
 const name = {
     field: 'major', headerName: 'التخصص', editable: true,
@@ -14,6 +17,9 @@ const name = {
     minWidth: 100,
     filter: true,
     resizable: true,
+      enableRowGroup: true,
+      enablePivot: true,
+      enableValue: true,
 };
 const major = {
     field: 'doctor', headerName: 'الطبيب', editable: true,
@@ -22,6 +28,9 @@ const major = {
     minWidth: 100,
     filter: true,
     resizable: true,
+      enableRowGroup: true,
+      enablePivot: true,
+      enableValue: true,
 };
 const phone = {
     field: 'mobile', headerName: 'الجوال', editable: true,
@@ -30,6 +39,9 @@ const phone = {
     minWidth: 100,
     filter: true,
     resizable: true,
+      enableRowGroup: true,
+      enablePivot: true,
+      enableValue: true,
 };
 const city = {
     field: 'city', headerName: 'المحافظة', editable: true,
@@ -38,6 +50,9 @@ const city = {
     minWidth: 100,
     filter: true,
     resizable: true,
+      enableRowGroup: true,
+      enablePivot: true,
+      enableValue: true,
 };
 
 

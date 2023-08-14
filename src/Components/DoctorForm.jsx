@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import DoctorGrid from "./doctorGrid";
+import Table from "./Table/Table";
 import './DoctorForm.css';
 
 const DoctorForm = () => {
@@ -66,8 +66,8 @@ const DoctorForm = () => {
     }
     else {
   const filtered = doctors.filter((doctor) => {
-    const nameMatch = name.length === 0 || doctor.doctor.includes(name);
-    const specMatch = specialization.length === 0 || doctor.major === specialization || specialization === "جميع التخصصات";
+    const nameMatch = name.length === 0 || doctor.doctor.includes(name) || thisregion === "الجميع";
+    const specMatch = specialization.length === 0 || doctor.major === specialization || specialization === "جميع التخصصات" || thisregion === "الجميع";
     const regionMatch = thisregion.length === 0 || doctor.city === thisregion || thisregion === "الجميع";
     return nameMatch && specMatch && regionMatch;
   });
@@ -124,10 +124,10 @@ return (
 
     </ul>
     <div className="tab-content">
-      {filteredDoctors.length > 0 || searchClicked ? (
-        <DoctorGrid doctors={[...filteredDoctors]} />
+    
+            {filteredDoctors.length > 0 || searchClicked ? (
+      <Table data={[...filteredDoctors]} rowsPerPage={5}></Table>
       ) : null}
-
     </div>
 
 
