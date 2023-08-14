@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './Components/Home';
 import Register from './Components/Register';
 import Login from './Components/Login';
+import HeaderContainer from './Components/HeaderContainer';
 import NavigationBar from './Components/navbar';
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
             path="/"
             element={
               <div className="App">
+                            <HeaderContainer></HeaderContainer>
                 <NavigationBar />
                 <Home />
               </div>
@@ -22,6 +24,7 @@ function App() {
             path="/register"
             element={
               <div>
+                            <HeaderContainer></HeaderContainer>
                 <NavigationBar />
                 <Register />
               </div>
@@ -31,6 +34,7 @@ function App() {
             path="/login"
             element={
               <div>
+                            <HeaderContainer></HeaderContainer>
                 <NavigationBar />
                 <Login />
               </div>

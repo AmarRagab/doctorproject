@@ -5,18 +5,18 @@ import './ReviewPopup.css';
 import { useAuth } from './context/Auth/AuthContextProvider';
 
 const ReviewPopup = ({ onSave, onCancel, doctorId }) => {
-  const { user } = useAuth(); 
+  const { user } = useAuth();
   const [rating, setRating] = useState(0);
   const [notes, setNotes] = useState('');
 
 
-  
+
   const handleSave = () => {
     const reviewData = {
-      reviewer: user.username, 
+      reviewer: user.username,
       rating,
       notes,
-      date: new Date().toISOString(), 
+      date: new Date().toISOString(),
     };
     onSave(reviewData);
     setRating(0);
@@ -27,22 +27,23 @@ const ReviewPopup = ({ onSave, onCancel, doctorId }) => {
     <div className="popup-container">
       <div className="popup-body">
         <div className="review-popup">
-          <h2>Write a Review</h2>
+          <h2>تقييم</h2>
           <StarRating rating={rating} onRatingChange={setRating} />
           <textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
-            placeholder="Enter your review notes..."
+            placeholder="أكتب ملاحظاتك..."
           />
           <div className="button-container">
-            <button className="cancel-button" onClick={onCancel}>
-              Cancel
-            </button>
-            {rating > 0 && (
-               <button className="save-button" onClick={handleSave}>
-               Save
-             </button>
+          {rating > 0 && (
+              <button className="save-button" onClick={handleSave}>
+                حفظ
+              </button>
             )}
+            <button className="cancel-button" onClick={onCancel}>
+              اغلاق
+            </button>
+           
           </div>
         </div>
       </div>

@@ -12,10 +12,10 @@ import { ToastContainer } from 'react-toastify';
 
 const OverviewPopup = ({ doctorData, onClose }) => {
   const [reviews, setReviews] = useState([]);
-  const {user} =useAuth();
-  const {isLoging} =useAuth();
+  const { user } = useAuth();
+  const { isLoging } = useAuth();
   const [averageRating, setAverageRating] = useState(0);
-  const [selectedReview, setSelectedReview] = useState(null); 
+  const [selectedReview, setSelectedReview] = useState(null);
   const [isReviewPopupOpen, setIsReviewPopupOpen] = useState(false);
 
   const handleReviewPopupOpen = () => {
@@ -25,7 +25,7 @@ const OverviewPopup = ({ doctorData, onClose }) => {
     else {
       toast.error("You're not logged in!", {
         position: 'top-center',
-        autoClose: 1500,
+        autoClose: 1000,
       });
     }
   };
@@ -35,7 +35,7 @@ const OverviewPopup = ({ doctorData, onClose }) => {
       const existingReviews = JSON.parse(localStorage.getItem(doctorData.id)) || [];
       const completeReviewData = {
         ...reviewData,
-        reviewer: user.username, 
+        reviewer: user.username,
         date: new Date().toISOString(),
       };
       existingReviews.push(completeReviewData);
@@ -65,11 +65,11 @@ const OverviewPopup = ({ doctorData, onClose }) => {
   };
 
   const handleShowPopup = (review) => {
-    setSelectedReview(review); 
+    setSelectedReview(review);
     setIsPopupOpen(true);
   };
 
-  
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
 
@@ -78,18 +78,18 @@ const OverviewPopup = ({ doctorData, onClose }) => {
   };
 
   const NotesCellRenderer = ({ value }) => {
-  
+
 
     return (
       <div>
-        <button onClick={handleShowPopup}>Show</button>
+        <button onClick={handleShowPopup}>عرض</button>
       </div>
     );
   };
 
   const columnDefs = [
     {
-      headerName: 'Reviewer', field: 'reviewer', sortable: true,
+      headerName: 'الاسم', field: 'reviewer', sortable: true,
       flex: 1,
       filter: true,
       resizable: true,
@@ -97,7 +97,7 @@ const OverviewPopup = ({ doctorData, onClose }) => {
 
     },
     {
-      headerName: 'Date', field: 'date', sortable: true,
+      headerName: 'تاريخ التقييم', field: 'date', sortable: true,
       flex: 1,
       filter: true,
       resizable: true,
@@ -105,7 +105,7 @@ const OverviewPopup = ({ doctorData, onClose }) => {
 
     },
     {
-      headerName: 'Stars',
+      headerName: 'التقييم',
       field: 'rating', sortable: true,
       flex: 1,
       filter: true,
@@ -114,7 +114,7 @@ const OverviewPopup = ({ doctorData, onClose }) => {
       cellRenderer: ({ value }) => <StarRating rating={value} readOnly />
     },
     {
-      headerName: 'Notes',
+      headerName: 'ملاحظات',
       field: 'notes',
       cellRenderer: NotesCellRenderer,
       sortable: true,
@@ -127,26 +127,27 @@ const OverviewPopup = ({ doctorData, onClose }) => {
   ];
 
   return (
-    <div className="popup-container">
-      <div className="popup-body">
+    <div className="popup-containerr">
+      <div className="popup-bodyy">
         <div className="overview-popup">
-          <h2>Doctor Overview</h2>
-          <div className="doctor-info">
-            <h3>{doctorData.doctor}</h3>
-            <p>Specialty: {doctorData.major}</p>
-            <p>address: {doctorData.address}</p>
-            <p>city: {doctorData.city}</p>
-            <p>phone: {doctorData.mobile}</p>
-            <p>Average Rating:</p>
-            <StarRating rating={averageRating} readOnly />
-            {isLoging &&(  <button className="rate-button" onClick={handleReviewPopupOpen}>
-              Rate
-            </button>)}
-          
-          </div>
+          <h2>ملخص الدكتور</h2>
+          <h3>{doctorData.doctor}</h3>
+          <div className="doctor-info row">
+            <p className='col'>التخصص: {doctorData.major}</p>
+            <p className='col'>العنوان: {doctorData.address}</p>
+            <div class="w-100"></div>
+            <p className='col'>المحافظة: {doctorData.city}</p>
+            <p className='col'>الهاتف: {doctorData.mobile}</p>
+            <div class="w-100"></div>
 
-          <h3>Reviews</h3>
-          <div className="ag-theme-alpine" style={{ height: '300px' }}>
+          </div>
+          <p className='col'>معدل التقييم:</p>
+          <StarRating rating={averageRating} onRatingChange={() => { }} readOnly />
+          {isLoging && (<button className="rate-button" onClick={handleReviewPopupOpen}>
+            قيم
+          </button>)}
+          <h3>التقييمات</h3>
+          <div className="ag-theme-alpine" style={{ height: '200px' }}>
 
             <AgGridReact
               rowData={reviews}
@@ -162,36 +163,36 @@ const OverviewPopup = ({ doctorData, onClose }) => {
             {isPopupOpen && selectedReview && (
               <div className="notes-popup">
                 <p>{selectedReview.notes}</p>
-                <button onClick={handlePopupClose}>Close</button>
+                <button onClick={handlePopupClose}>اغلاق</button>
               </div>
             )}
-            
+
           </div>
-          {isReviewPopupOpen && isLoging &&(
+          {isReviewPopupOpen && isLoging && (
             <ReviewPopup
-              onSave={handleReviewSave}  
+              onSave={handleReviewSave}
               onCancel={handleReviewPopupClose}
               doctorId={doctorData.id}
             />
           )}
           <button className="close-button" onClick={onClose}>
-              Close
-            </button>
-            <ToastContainer></ToastContainer>
-        </div>
+            اغلاق
+          </button>
+          <ToastContainer></ToastContainer>
         </div>
       </div>
-      );
+    </div>
+  );
 };
 
-      OverviewPopup.propTypes = {
-        doctorId: PropTypes.number,
-      onClose: PropTypes.func.isRequired,
+OverviewPopup.propTypes = {
+  doctorId: PropTypes.number,
+  onClose: PropTypes.func.isRequired,
 };
 
 const calculateAverageRating = (reviews) => {
   const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
-      return (totalRating / reviews.length) || 0;
+  return (totalRating / reviews.length) || 0;
 };
 
-      export default OverviewPopup;
+export default OverviewPopup;

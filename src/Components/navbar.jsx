@@ -4,10 +4,10 @@ import './navbar.css';
 import { useAuth } from './context/Auth/AuthContextProvider';
 
 const NavigationBar = () => {
-  const { isLoging, logOut } = useAuth(); 
+  const { isLoging, logOut } = useAuth();
 
   const handleLogout = () => {
-    logOut(); 
+    logOut();
   };
 
   return (

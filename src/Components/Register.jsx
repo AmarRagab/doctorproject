@@ -21,7 +21,7 @@ const Register = () => {
 
   const validateForm = () => {
     const newErrors = {};
-  
+
     if (!formData.username) {
       newErrors.username = 'Username is required';
     } else if (localStorage.getItem(formData.username)) {
@@ -57,11 +57,11 @@ const Register = () => {
       if (localStorage.getItem(formData.username)) {
         toast.error('Username already exists!', {
           position: 'top-center',
-          autoClose: 2000,
+          autoClose: 1000,
         });
         return;
       }
-  
+
       const user = {
         id: formData.username,
         firstName: formData.firstName,
@@ -70,17 +70,17 @@ const Register = () => {
         password: formData.password,
       };
       localStorage.setItem(formData.username, JSON.stringify(user));
-  
+
       toast.success('User registered successfully!', {
         position: 'top-center',
-        autoClose: 2000,
+        autoClose: 1000,
         onClose: () => {
           navigateto('/login');
         },
       });
     }
   };
-  
+
 
 
   const handleChange = (e) => {

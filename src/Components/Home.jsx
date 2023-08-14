@@ -7,7 +7,6 @@ const Home = () => {
 
     return (
         <div>
-            <HeaderContainer></HeaderContainer>
             <DoctorForm></DoctorForm>
         </div>
     );

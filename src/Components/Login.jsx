@@ -44,7 +44,7 @@ const Login = () => {
 
         toast.success(`Welcome, ${fullName}!`, {
           position: 'top-center',
-          autoClose: 3000,
+          autoClose: 1000,
           onClose: () => {
             navigateto('/'); 
           },
@@ -52,7 +52,7 @@ const Login = () => {
       } else {
         toast.error('Incorrect username or password', {
           position: 'top-center',
-          autoClose: 3000,
+          autoClose: 1000,
         });
       }
     }
