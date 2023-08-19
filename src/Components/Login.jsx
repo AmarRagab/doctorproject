@@ -111,9 +111,6 @@ const Login = () => {
       </p>
     </div>
     </form>
-    <p className="text-sm mt-3 text-center">
-      Don't have an account? <Link to="/register" className="text-blue-500">Register</Link>
-    </p>
     <ToastContainer />
   </div>
 
