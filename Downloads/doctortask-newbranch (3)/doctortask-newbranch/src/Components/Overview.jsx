@@ -5,10 +5,7 @@ import ReviewPopup from './ReviewDialog';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import { useAuth } from './context/Auth/AuthContextProvider';
 import { toast } from 'react-toastify';
-
-import { ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
 
 const OverviewPopup = ({ doctorData, onClose }) => {
@@ -93,7 +90,11 @@ const OverviewPopup = ({ doctorData, onClose }) => {
       flex: 1,
       filter: true,
       resizable: true,
+      wrapText: true,    
+    autoHeight: true,
       minWidth: 100,
+      cellStyle : {   'display': 'block','textOverflow':'ellipsis','whiteSpace':'nowrap', 'overflow': 'hidden', 'padding': 0 },
+
 
     },
     {
@@ -102,7 +103,12 @@ const OverviewPopup = ({ doctorData, onClose }) => {
       filter: true,
       resizable: true,
       minWidth: 100,
-
+      wrapText: false,    
+    autoHeight: true,
+      cellStyle : { 'display': 'block','textOverflow':'ellipsis','whitespace':'nowrap', 'overflow': 'hidden', 'padding': 0 },
+      onCellClicked: () =>{
+        wrapText=!wrapText;
+      }
     },
     {
       headerName: 'التقييم',
@@ -111,6 +117,9 @@ const OverviewPopup = ({ doctorData, onClose }) => {
       filter: true,
       resizable: true,
       minWidth: 100,
+      wrapText: true,     
+    autoHeight: true,
+      cellStyle : { 'display': 'block','textOverflow':'ellipsis','whiteSpace':'nowrap', 'overflow': 'hidden', 'padding': 0 },
       cellRenderer: ({ value }) => <StarRating rating={value} readOnly />
     },
     {
@@ -122,14 +131,17 @@ const OverviewPopup = ({ doctorData, onClose }) => {
       filter: true,
       resizable: true,
       minWidth: 100,
-
+      wrapText: false, 
+    autoHeight: true,
+      cellStyle : { 'display': 'block','textOverflow':'ellipsis','whiteSpace':'nowrap', 'overflow': 'hidden', 'padding': 0 },
+      
     },
   ];
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur">
-      <div className="bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-lg">
-        <div className="p-6 text-center">
+      <div className="bg-white rounded-lg shadow-lg  min-h-[600px] max-h-[600px] overflow-scroll" style={{width:"300px"}}>
+        <div className="p-6 text-center overflow-scroll">
           <h2 className="text-2xl font-semibold mb-2">ملخص الدكتور</h2>
           <h3 className="text-lg mb-4">{doctorData.doctor}</h3>
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mb-4 justify-center">

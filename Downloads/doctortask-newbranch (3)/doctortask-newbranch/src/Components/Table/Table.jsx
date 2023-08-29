@@ -142,7 +142,7 @@ const Table = ({ data, rowsPerPage }) => {
       {isOverviewPopupOpen && (
         <OverviewPopup
           doctorData={data.find((doctor) => doctor.id === selectedDoctorId)}
-          onClose={() => setIsOverviewPopupOpen(false)}
+          onClose={() => dispatch(setIsOverviewPopupOpen(false))}
         />
       )}
       <ToastContainer />
