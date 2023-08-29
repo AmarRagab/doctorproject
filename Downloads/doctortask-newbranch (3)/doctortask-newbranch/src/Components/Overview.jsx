@@ -144,7 +144,7 @@ const OverviewPopup = ({ doctorData, onClose }) => {
           <div className="flex justify-center">
             <StarRating rating={averageRating} onRatingChange={() => { }} readOnly />
           </div>
-          {isLoging && (
+          {user!==null && (
             <button className="mt-4 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300" onClick={handleReviewPopupOpen}>
               قيم
             </button>
@@ -175,7 +175,7 @@ const OverviewPopup = ({ doctorData, onClose }) => {
               </div>
             </div>
           )}
-          {isReviewPopupOpen && isLoging && (
+          {isReviewPopupOpen && user!==null && (
             <ReviewPopup
               onSave={handleReviewSave}
               onCancel={handleReviewPopupClose}

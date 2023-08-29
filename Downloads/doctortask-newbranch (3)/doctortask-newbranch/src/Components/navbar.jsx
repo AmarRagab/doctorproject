@@ -4,31 +4,34 @@ import { clearUser } from '../Slices/authSlice';
 import { setIsMobileScreen,toggleMobileMenu } from '../Slices/navbarSlice';
 
 const Navbar = () => {
-  const dispatch = useDispatch();
+  const dispatch=useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const {isMobileMenuOpen,isMobileScreen,} = useSelector((state) => state.navbar);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileScreen, setIsMobileScreen] = useState(false);
 
   useEffect(() => {
     const checkScreenWidth = () => {
-      dispatch(setIsMobileScreen(window.innerWidth <= 640));
+      setIsMobileScreen(window.innerWidth <= 640);
     };
 
     checkScreenWidth();
 
-    window.addEventListener('resize', checkScreenWidth);
+    window.addEventListener("resize", checkScreenWidth);
 
     return () => {
-      window.removeEventListener('resize', checkScreenWidth);
+      window.removeEventListener("resize", checkScreenWidth);
     };
   }, []);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   const handleLogout = () => {
     dispatch(clearUser());
   };
 
-  const toggleMobileMenudis = () =>{
-    dispatch(toggleMobileMenu());
-  }
+ 
   return (
     <nav className="bg-blue-900 py-4" dir="rtl">
     <div className="container mx-auto flex items-center justify-between flex-wrap">
@@ -102,7 +105,7 @@ const Navbar = () => {
             data-dropdown-toggle="dropdown"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             type="button"
-            onClick={toggleMobileMenudis}
+            onClick={toggleMobileMenu}
           >
             <svg className="w-6 h-6 ml-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
